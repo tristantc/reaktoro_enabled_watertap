@@ -25,8 +25,6 @@ from reaktoro_enabled_watertap.property_models.tests.test_mcas_with_enthalpy imp
 )
 from watertap.property_models.water_prop_pack import WaterParameterBlock
 
-__author__ = "Alexander V. Dudchenko"
-
 from watertap.core.util.model_diagnostics.infeasible import *
 
 from reaktoro_enabled_watertap.utils import scale_utils as scu
@@ -43,6 +41,8 @@ import watertap.property_models.seawater_prop_pack as props_sw
 from reaktoro_enabled_watertap.unit_models.multi_comp_feed_unit import (
     MultiCompFeed,
 )
+
+__author__ = "Alexander V. Dudchenko"
 
 
 def build_nacl_case():
