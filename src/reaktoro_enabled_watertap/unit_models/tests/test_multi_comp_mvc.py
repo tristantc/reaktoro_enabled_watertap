@@ -182,7 +182,6 @@ def test_mvc_no_reaktoro_mcas():
     assert degrees_of_freedom(m) == 0
     m.fs.feed.initialize()
     m.fs.MVC.initialize()
-    # assert degrees_of_freedom(m) == 0
 
     m.fs.MVC.set_optimization_operation()
     print("Degrees of freedom optimization: ", degrees_of_freedom(m))
