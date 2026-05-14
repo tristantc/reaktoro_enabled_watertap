@@ -6,10 +6,7 @@ from reaktoro_enabled_watertap.unit_models.multi_comp_mvc import (
 from reaktoro_pse.core.util_classes.cyipopt_solver import (
     get_cyipopt_watertap_solver,
 )
-from pyomo.environ import (
-    ConcreteModel,
-    assert_optimal_termination,
-)
+from pyomo.environ import ConcreteModel
 from idaes.core.util.model_statistics import degrees_of_freedom
 from idaes.core import (
     FlowsheetBlock,
@@ -33,19 +30,12 @@ __author__ = "Alexander V. Dudchenko"
 from watertap.core.util.model_diagnostics.infeasible import *
 
 from reaktoro_enabled_watertap.utils import scale_utils as scu
-from reaktoro_pse.parallel_tools.reaktoro_block_manager import (
-    ReaktoroBlockManager,
-)
 from reaktoro_enabled_watertap.property_models.mcas_with_enthalpy import (
     MCASWEParameterBlock,
 )
 from watertap.property_models.multicomp_aq_sol_prop_pack import (
     ActivityCoefficientModel,
     DensityCalculation,
-)
-from idaes.core.util.model_diagnostics import (
-    DiagnosticsToolbox,
-    check_optimal_termination,
 )
 import watertap.property_models.seawater_prop_pack as props_sw
 
