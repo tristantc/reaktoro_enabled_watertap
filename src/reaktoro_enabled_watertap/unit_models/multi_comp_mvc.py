@@ -1016,6 +1016,14 @@ class MultiCompMVCData(WaterTapFlowsheetBlockData):
         iscale.set_scaling_factor(self.compressor.efficiency, 1 / 0.8)
 
         iscale.set_scaling_factor(self.compressor.control_volume.work, work_scale)
+        for _, phase, ion in self.compressor.control_volume.material_balances.keys():
+            sf = prop_scaling["mass"].get(ion, fluid_flow_scale)
+            if phase == "Vap" and ion == "H2O":
+                sf = fluid_flow_scale
+            iscale.constraint_scaling_transform(
+                self.compressor.control_volume.material_balances[0, phase, ion],
+                sf,
+            )
         # condenser
         iscale.set_scaling_factor(self.condenser.control_volume.heat, heat_scale)
 
