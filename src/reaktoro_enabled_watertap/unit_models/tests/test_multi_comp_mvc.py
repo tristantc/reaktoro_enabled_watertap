@@ -91,7 +91,7 @@ def build_nacl_case():
 
 @pytest.mark.core
 @pytest.mark.component
-def test_crystallizer_no_reaktoro_sea_water_prop_with_translators():
+def test_mvc_no_reaktoro_sea_water_prop_with_translators():
     m = build_nacl_case()
 
     m.fs.water_properties_vapor = WaterParameterBlock()
