@@ -246,10 +246,12 @@ class MultiCompMVCData(WaterTapFlowsheetBlockData):
             hot={
                 "property_package": mvc_prop_pack,
                 "has_pressure_change": True,
+                "energy_balance_type": EnergyBalanceType.enthalpyTotal,
             },
             cold={
                 "property_package": mvc_prop_pack,
                 "has_pressure_change": True,
+                "energy_balance_type": EnergyBalanceType.enthalpyTotal,
             },
             delta_temperature_callback=delta_temperature_chen_callback,
             flow_pattern=HeatExchangerFlowPattern.countercurrent,
@@ -260,10 +262,12 @@ class MultiCompMVCData(WaterTapFlowsheetBlockData):
             hot={
                 "property_package": mvc_prop_pack,
                 "has_pressure_change": True,
+                "energy_balance_type": EnergyBalanceType.enthalpyTotal,
             },
             cold={
                 "property_package": mvc_prop_pack,
                 "has_pressure_change": True,
+                "energy_balance_type": EnergyBalanceType.enthalpyTotal,
             },
             delta_temperature_callback=delta_temperature_chen_callback,
             flow_pattern=HeatExchangerFlowPattern.countercurrent,
