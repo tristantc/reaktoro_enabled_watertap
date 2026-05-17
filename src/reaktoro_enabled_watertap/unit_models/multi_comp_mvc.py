@@ -716,8 +716,10 @@ class MultiCompMVCData(WaterTapFlowsheetBlockData):
 
     def set_fixed_operation(self):
         """fixes operation point for pump unit model"""
+        t0 = self.flowsheet().time.first()
         self.pump_feed.efficiency_pump[0].fix(0.8)
         self.pump_feed.control_volume.deltaP[0].fix(7e3)
+        self.pump_feed.control_volume.work[t0].setlb(0)
 
         self.separator_feed.split_fraction[0, "hx_distillate_cold"] = (
             self.recovery.value
@@ -759,16 +761,19 @@ class MultiCompMVCData(WaterTapFlowsheetBlockData):
         # Compressor
         self.compressor.pressure_ratio.fix(1.6)
         self.compressor.efficiency.fix(0.8)
+        self.compressor.control_volume.work[t0].setlb(0)
 
         self.compressor.pressure_ratio.setlb(1.1)
         self.compressor.pressure_ratio.setub(3)
 
         # Brine pump
         self.pump_brine.efficiency_pump[0].fix(0.8)
+        self.pump_brine.control_volume.work[t0].setlb(0)
         self.pump_brine.inlet.pressure.setlb(1)
         self.pump_brine.outlet.pressure.setlb(1)
         self.pump_brine.outlet.pressure.fix(101325 + 4e4)
         # Distillate pump
+        self.pump_distillate.control_volume.work[t0].setlb(0)
         self.pump_distillate.inlet.pressure.setlb(1)
         self.pump_distillate.outlet.pressure.setlb(1)
         self.pump_distillate.outlet.pressure.fix(101325 + 4e4)
