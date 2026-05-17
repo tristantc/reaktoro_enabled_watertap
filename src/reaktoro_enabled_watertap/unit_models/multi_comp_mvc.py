@@ -809,20 +809,10 @@ class MultiCompMVCData(WaterTapFlowsheetBlockData):
 
     def set_optimization_operation(self):
         """unfixes operation for optimization"""
-        t0 = self.flowsheet().time.first()
         self.evaporator.area.unfix()
         self.evaporator.outlet_brine.temperature[0].unfix()
         self.evaporator.properties_vapor[0].temperature.setlb(273.15 + 40)
         self.compressor.pressure_ratio.unfix()
-        self.pump_feed.control_volume.work[t0].setlb(0)
-        self.pump_brine.control_volume.work[t0].setlb(0)
-        self.pump_distillate.control_volume.work[t0].setlb(0)
-        self.compressor.control_volume.work[t0].setlb(0)
-        if not self.config.add_reaktoro_chemistry:
-            self.pump_feed.control_volume.work[t0].setub(2e5)
-            self.pump_brine.control_volume.work[t0].setub(2e5)
-            self.pump_distillate.control_volume.work[t0].setub(2e5)
-            self.compressor.control_volume.work[t0].setub(5e5)
         self.hx_distillate.area.unfix()
         self.hx_brine.area.unfix()
         self.recovery.unfix()
