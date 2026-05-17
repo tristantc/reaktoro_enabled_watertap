@@ -13,7 +13,11 @@
 from reaktoro_enabled_watertap.utils.watertap_flowsheet_block import (
     WaterTapFlowsheetBlockData,
 )
-from idaes.core.util.initialization import propagate_state
+from idaes.core.util.initialization import (
+    propagate_state,
+    fix_state_vars,
+    revert_state_vars,
+)
 from reaktoro_enabled_watertap.utils.reaktoro_utils import (
     ReaktoroOptionsContainer,
 )
@@ -51,7 +55,6 @@ from idaes.core import (
 from idaes.core import UnitModelCostingBlock
 
 import idaes.core.util.scaling as iscale
-from idaes.core.util.initialization import fix_state_vars, revert_state_vars
 from reaktoro_enabled_watertap.utils import scale_utils as scu
 
 from reaktoro_pse.reaktoro_block import ReaktoroBlock
