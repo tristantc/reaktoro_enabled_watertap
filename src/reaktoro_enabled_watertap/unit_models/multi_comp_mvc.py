@@ -534,14 +534,6 @@ class MultiCompMVCData(WaterTapFlowsheetBlockData):
         )
 
     def add_costing(self):
-        t0 = self.flowsheet().time.first()
-        # Electricity costing is registered on expressions of these work vars,
-        # so enforce nonnegative bounds before creating costing blocks.
-        self.pump_feed.control_volume.work[t0].setlb(0)
-        self.pump_distillate.control_volume.work[t0].setlb(0)
-        self.pump_brine.control_volume.work[t0].setlb(0)
-        self.compressor.control_volume.work[t0].setlb(0)
-
         self.pump_feed.costing = UnitModelCostingBlock(
             flowsheet_costing_block=self.config.default_costing_package,
             costing_method_arguments={"pump_type": "low_pressure"},
