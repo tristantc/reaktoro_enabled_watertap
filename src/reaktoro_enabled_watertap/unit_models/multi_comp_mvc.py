@@ -51,6 +51,7 @@ from watertap.unit_models.mvc.components.lmtd_chen_callback import (
 from watertap.unit_models.pressure_changer import Pump
 from idaes.core import (
     declare_process_block_class,
+    EnergyBalanceType,
 )
 from idaes.core import UnitModelCostingBlock
 
