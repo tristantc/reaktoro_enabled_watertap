@@ -135,10 +135,10 @@ def test_mvc_no_reaktoro_sea_water_prop_with_translators():
     m.fs.MVC.recovery.fix()
     assert degrees_of_freedom(m) == 4
     m.fs.cost_objective = Objective(expr=m.fs.costing.LCOW)
-    for r in [0.5, 0.8]:
+    solver = get_cyipopt_watertap_solver(linear_solver="mumps", max_iter=3000)
+    for r in [0.5, 0.6, 0.7, 0.8]:
 
         m.fs.MVC.recovery.fix(r)
-        solver = get_cyipopt_watertap_solver(linear_solver="mumps", max_iter=3000)
         result = solver.solve(m, tee=True)
         print(f"Water removal: {r}")
         m.fs.MVC.report()
