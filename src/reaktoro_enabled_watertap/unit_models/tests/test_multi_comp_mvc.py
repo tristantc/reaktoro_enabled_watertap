@@ -254,7 +254,8 @@ def test_mvc_with_reaktoro_sea_water_prop_with_translators():
 
 @pytest.mark.core
 @pytest.mark.component
-def test_mvc_with_reaktoro_mcas():
+@pytest.mark.parametrize("r", [0.5, 0.6, 0.7, 0.8])
+def test_mvc_with_reaktoro_mcas(r):
     m = build_case("Seawater", True)
 
     m.fs.water_properties_vapor = WaterParameterBlock()
@@ -267,7 +268,6 @@ def test_mvc_with_reaktoro_mcas():
     )
 
     m.fs.MVC.fix_and_scale()
-
     m.fs.feed.outlet.connect_to(m.fs.MVC.inlet)
     TransformationFactory("network.expand_arcs").apply_to(m)
 
@@ -281,26 +281,24 @@ def test_mvc_with_reaktoro_mcas():
     )
 
     iscale.calculate_scaling_factors(m)
-
     scu.scale_costing_block(m.fs.costing)
 
-    print("Degrees of freedom before initialization: ", degrees_of_freedom(m))
     assert degrees_of_freedom(m) == 0
     m.fs.feed.initialize()
     m.fs.MVC.initialize()
     m.fs.MVC.set_optimization_operation()
-
     m.fs.MVC.deactivate_scaling_constraints()
+
     assert degrees_of_freedom(m) == 5
-    m.fs.MVC.recovery.fix()
+    m.fs.MVC.recovery.fix(r)
     assert degrees_of_freedom(m) == 4
+
     m.fs.cost_objective = Objective(expr=m.fs.costing.LCOW)
+
     solver = get_cyipopt_watertap_solver(linear_solver="mumps", max_iter=3000)
-    for r in [0.5, 0.6, 0.7, 0.8]:
+    result = solver.solve(m, tee=True)
 
-        m.fs.MVC.recovery.fix(r)
-        result = solver.solve(m, tee=True)
-        print(f"Water removal: {r}")
-        m.fs.MVC.report()
+    print(f"Water removal: {r}")
+    m.fs.MVC.report()
 
-        assert check_optimal_termination(result)
+    assert check_optimal_termination(result)
