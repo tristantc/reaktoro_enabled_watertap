@@ -23,8 +23,9 @@ def test_stability_sweep():
     )
     if os.path.exists(filename):
         os.remove(filename)
-
-    stability_sweep.main()
+    # use single worker to avoid
+    # issues on github runner.
+    stability_sweep.main(num_loop_workers=1, use_ma27=False)
 
     data_manager = PsDataManager(
         filename,

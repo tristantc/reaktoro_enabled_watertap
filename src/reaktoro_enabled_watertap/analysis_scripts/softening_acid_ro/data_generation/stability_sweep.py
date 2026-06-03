@@ -28,7 +28,7 @@ def initialize_ma27(m, **kwargs):
     sar.initialize(m, linear_solver="ma27", tee=False)
 
 
-def main(save_location=None, config_location=None):
+def main(save_location=None, config_location=None, num_loop_workers=3, use_ma27=True):
     ts = time.time()
 
     work_path = get_lib_path()
@@ -37,16 +37,18 @@ def main(save_location=None, config_location=None):
         save_location = work_path
     if config_location is None:
         config_location = work_path
+    solver = solve_with_ma27 if use_ma27 else sar.solve_model
+    initializer = initialize_ma27 if use_ma27 else sar.initialize
     loopTool(
         config_location + "/stability_sweep.yaml",
         build_function=sar.build_model,
-        initialize_function=initialize_ma27,
-        optimize_function=solve_with_ma27,
+        initialize_function=initializer,
+        optimize_function=solver,
         save_name="stability_sweep",
         probe_function=sar.test_func,
         saving_dir=save_location,
         number_of_subprocesses=1,
-        num_loop_workers=3,
+        num_loop_workers=num_loop_workers,
     )
 
     print("Total time: ", time.time() - ts)
