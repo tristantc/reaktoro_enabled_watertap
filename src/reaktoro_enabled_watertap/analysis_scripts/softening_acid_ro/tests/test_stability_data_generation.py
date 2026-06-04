@@ -25,7 +25,7 @@ def test_stability_sweep():
         os.remove(filename)
     # use single worker to avoid
     # issues on github runner.
-    num_samples=1
+    num_samples = 1
     stability_sweep.main(num_loop_workers=1, use_ma27=False, num_samples=num_samples)
 
     data_manager = PsDataManager(
@@ -43,7 +43,11 @@ def test_stability_sweep():
             ("water_sim_cases", "BGW"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "bfgs_damp_gn"), ("water_sim_cases", "BGW"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "bfgs_damp_gn"),
+            ("water_sim_cases", "BGW"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "bfgs_damp_gn"),
             ("water_sim_cases", "BGW_1500"),
@@ -139,31 +143,51 @@ def test_stability_sweep():
             ("water_sim_cases", "BGW"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "bfgs_gn"), ("water_sim_cases", "BGW"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "bfgs_gn"),
+            ("water_sim_cases", "BGW"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "bfgs_gn"),
             ("water_sim_cases", "BGW_1500"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "bfgs_gn"), ("water_sim_cases", "BGW_1500"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "bfgs_gn"),
+            ("water_sim_cases", "BGW_1500"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "bfgs_gn"),
             ("water_sim_cases", "BGW_500"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "bfgs_gn"), ("water_sim_cases", "BGW_500"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "bfgs_gn"),
+            ("water_sim_cases", "BGW_500"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "bfgs_gn"),
             ("water_sim_cases", "SW_HPRO"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "bfgs_gn"), ("water_sim_cases", "SW_HPRO"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "bfgs_gn"),
+            ("water_sim_cases", "SW_HPRO"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "bfgs_gn"),
             ("water_sim_cases", "SW_RO"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "bfgs_gn"), ("water_sim_cases", "SW_RO"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "bfgs_gn"),
+            ("water_sim_cases", "SW_RO"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "bfgs_ipopt_gn"),
             ("water_sim_cases", "BGW"),
@@ -269,7 +293,11 @@ def test_stability_sweep():
             ("water_sim_cases", "BGW"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "bfgs_sc1"), ("water_sim_cases", "BGW"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "bfgs_sc1"),
+            ("water_sim_cases", "BGW"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "bfgs_sc1"),
             ("water_sim_cases", "BGW_1500"),
@@ -285,25 +313,41 @@ def test_stability_sweep():
             ("water_sim_cases", "BGW_500"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "bfgs_sc1"), ("water_sim_cases", "BGW_500"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "bfgs_sc1"),
+            ("water_sim_cases", "BGW_500"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "bfgs_sc1"),
             ("water_sim_cases", "SW_HPRO"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "bfgs_sc1"), ("water_sim_cases", "SW_HPRO"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "bfgs_sc1"),
+            ("water_sim_cases", "SW_HPRO"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "bfgs_sc1"),
             ("water_sim_cases", "SW_RO"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "bfgs_sc1"), ("water_sim_cases", "SW_RO"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "bfgs_sc1"),
+            ("water_sim_cases", "SW_RO"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "cbfgs_gn"),
             ("water_sim_cases", "BGW"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "cbfgs_gn"), ("water_sim_cases", "BGW"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "cbfgs_gn"),
+            ("water_sim_cases", "BGW"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "cbfgs_gn"),
             ("water_sim_cases", "BGW_1500"),
@@ -319,25 +363,41 @@ def test_stability_sweep():
             ("water_sim_cases", "BGW_500"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "cbfgs_gn"), ("water_sim_cases", "BGW_500"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "cbfgs_gn"),
+            ("water_sim_cases", "BGW_500"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "cbfgs_gn"),
             ("water_sim_cases", "SW_HPRO"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "cbfgs_gn"), ("water_sim_cases", "SW_HPRO"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "cbfgs_gn"),
+            ("water_sim_cases", "SW_HPRO"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "cbfgs_gn"),
             ("water_sim_cases", "SW_RO"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "cbfgs_gn"), ("water_sim_cases", "SW_RO"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "cbfgs_gn"),
+            ("water_sim_cases", "SW_RO"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "cbfgs_sc1"),
             ("water_sim_cases", "BGW"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "cbfgs_sc1"), ("water_sim_cases", "BGW"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "cbfgs_sc1"),
+            ("water_sim_cases", "BGW"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "cbfgs_sc1"),
             ("water_sim_cases", "BGW_1500"),
@@ -373,13 +433,21 @@ def test_stability_sweep():
             ("water_sim_cases", "SW_RO"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "cbfgs_sc1"), ("water_sim_cases", "SW_RO"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "cbfgs_sc1"),
+            ("water_sim_cases", "SW_RO"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "gauss_newton"),
             ("water_sim_cases", "BGW"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "gauss_newton"), ("water_sim_cases", "BGW"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "gauss_newton"),
+            ("water_sim_cases", "BGW"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "gauss_newton"),
             ("water_sim_cases", "BGW_1500"),
@@ -425,7 +493,11 @@ def test_stability_sweep():
             ("water_sim_cases", "BGW"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "lbfgs_gn"), ("water_sim_cases", "BGW"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "lbfgs_gn"),
+            ("water_sim_cases", "BGW"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "lbfgs_gn"),
             ("water_sim_cases", "BGW_1500"),
@@ -441,25 +513,41 @@ def test_stability_sweep():
             ("water_sim_cases", "BGW_500"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "lbfgs_gn"), ("water_sim_cases", "BGW_500"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "lbfgs_gn"),
+            ("water_sim_cases", "BGW_500"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "lbfgs_gn"),
             ("water_sim_cases", "SW_HPRO"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "lbfgs_gn"), ("water_sim_cases", "SW_HPRO"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "lbfgs_gn"),
+            ("water_sim_cases", "SW_HPRO"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "lbfgs_gn"),
             ("water_sim_cases", "SW_RO"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "lbfgs_gn"), ("water_sim_cases", "SW_RO"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "lbfgs_gn"),
+            ("water_sim_cases", "SW_RO"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "lbfgs_sc1"),
             ("water_sim_cases", "BGW"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "lbfgs_sc1"), ("water_sim_cases", "BGW"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "lbfgs_sc1"),
+            ("water_sim_cases", "BGW"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "lbfgs_sc1"),
             ("water_sim_cases", "BGW_1500"),
@@ -495,67 +583,111 @@ def test_stability_sweep():
             ("water_sim_cases", "SW_RO"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "lbfgs_sc1"), ("water_sim_cases", "SW_RO"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "lbfgs_sc1"),
+            ("water_sim_cases", "SW_RO"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "lmt_sc1"),
             ("water_sim_cases", "BGW"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "lmt_sc1"), ("water_sim_cases", "BGW"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "lmt_sc1"),
+            ("water_sim_cases", "BGW"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "lmt_sc1"),
             ("water_sim_cases", "BGW_1500"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "lmt_sc1"), ("water_sim_cases", "BGW_1500"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "lmt_sc1"),
+            ("water_sim_cases", "BGW_1500"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "lmt_sc1"),
             ("water_sim_cases", "BGW_500"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "lmt_sc1"), ("water_sim_cases", "BGW_500"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "lmt_sc1"),
+            ("water_sim_cases", "BGW_500"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "lmt_sc1"),
             ("water_sim_cases", "SW_HPRO"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "lmt_sc1"), ("water_sim_cases", "SW_HPRO"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "lmt_sc1"),
+            ("water_sim_cases", "SW_HPRO"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "lmt_sc1"),
             ("water_sim_cases", "SW_RO"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "lmt_sc1"), ("water_sim_cases", "SW_RO"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "lmt_sc1"),
+            ("water_sim_cases", "SW_RO"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "zero_hs"),
             ("water_sim_cases", "BGW"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "zero_hs"), ("water_sim_cases", "BGW"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "zero_hs"),
+            ("water_sim_cases", "BGW"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "zero_hs"),
             ("water_sim_cases", "BGW_1500"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "zero_hs"), ("water_sim_cases", "BGW_1500"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "zero_hs"),
+            ("water_sim_cases", "BGW_1500"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "zero_hs"),
             ("water_sim_cases", "BGW_500"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "zero_hs"), ("water_sim_cases", "BGW_500"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "zero_hs"),
+            ("water_sim_cases", "BGW_500"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "zero_hs"),
             ("water_sim_cases", "SW_HPRO"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "zero_hs"), ("water_sim_cases", "SW_HPRO"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "zero_hs"),
+            ("water_sim_cases", "SW_HPRO"),
+            "LCOW",
+        ): num_samples,
         (
             ("hessian_sim_cases", "zero_hs"),
             ("water_sim_cases", "SW_RO"),
             "Water recovery",
         ): num_samples,
-        (("hessian_sim_cases", "zero_hs"), ("water_sim_cases", "SW_RO"), "LCOW"): num_samples,
+        (
+            ("hessian_sim_cases", "zero_hs"),
+            ("water_sim_cases", "SW_RO"),
+            "LCOW",
+        ): num_samples,
     }
     for key in data_manager:
         # test_data[key] = len(data_manager[key].data)
