@@ -18,6 +18,7 @@ from reaktoro_enabled_watertap.utils.report_util import get_lib_path
 
 import yaml
 import os
+
 __author__ = "Alexander V. Dudchenko"
 
 
@@ -29,16 +30,26 @@ def solve_with_ma27(m, tee=False, **kwargs):
 def initialize_ma27(m, **kwargs):
     sar.initialize(m, linear_solver="ma27", tee=False)
 
+
 def update_config(config_location, config_name, new_config_name, num_samples=11):
 
     with open(os.path.join(config_location, config_name), "r") as f:
         config = yaml.safe_load(f)
 
-    config['stability_sweep']['build_loop']['build_loop']['sweep_param_loop']['water_recovery']['num_samples']=num_samples
+    config["stability_sweep"]["build_loop"]["build_loop"]["sweep_param_loop"][
+        "water_recovery"
+    ]["num_samples"] = num_samples
     with open(os.path.join(config_location, new_config_name), "w") as f:
-        yaml.dump(config, f,sort_keys=False)
+        yaml.dump(config, f, sort_keys=False)
 
-def main(save_location=None, config_location=None, num_loop_workers=3, use_ma27=True, num_samples=11):
+
+def main(
+    save_location=None,
+    config_location=None,
+    num_loop_workers=3,
+    use_ma27=True,
+    num_samples=11,
+):
     ts = time.time()
     work_path = get_lib_path()
     work_path = str(work_path) + "/analysis_scripts/softening_acid_ro/data_generation"
@@ -49,8 +60,13 @@ def main(save_location=None, config_location=None, num_loop_workers=3, use_ma27=
     solver = solve_with_ma27 if use_ma27 else sar.solve_model
     initializer = initialize_ma27 if use_ma27 else sar.initialize
 
-    update_config(config_location, config_location + "/stability_sweep.yaml", config_location + "/_temp_stability_sweep.yaml", num_samples=num_samples)
-    
+    update_config(
+        config_location,
+        config_location + "/stability_sweep.yaml",
+        config_location + "/_temp_stability_sweep.yaml",
+        num_samples=num_samples,
+    )
+
     loopTool(
         config_location + "/_temp_stability_sweep.yaml",
         build_function=sar.build_model,
