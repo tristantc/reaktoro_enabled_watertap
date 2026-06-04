@@ -26,7 +26,7 @@ def test_stability_sweep():
     # use single worker to avoid
     # issues on github runner.
     num_samples = 1
-    stability_sweep.main(num_loop_workers=1, use_ma27=False, num_samples=num_samples)
+    stability_sweep.main(num_loop_workers=4, use_ma27=False, num_samples=num_samples)
 
     data_manager = PsDataManager(
         filename,
