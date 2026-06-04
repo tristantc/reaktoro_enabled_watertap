@@ -60,15 +60,15 @@ def main(
     solver = solve_with_ma27 if use_ma27 else sar.solve_model
     initializer = initialize_ma27 if use_ma27 else sar.initialize
 
-    # update_config(
-    #     config_location,
-    #     config_location + "/stability_sweep.yaml",
-    #     config_location + "/_temp_stability_sweep.yaml",
-    #     num_samples=num_samples,
-    # )
+    update_config(
+        config_location,
+        config_location + "/stability_sweep.yaml",
+        config_location + "/_temp_stability_sweep.yaml",
+        num_samples=num_samples,
+    )
 
     loopTool(
-        config_location + "/stability_sweep.yaml",
+        config_location + "/_temp_stability_sweep.yaml",
         build_function=sar.build_model,
         initialize_function=initializer,
         optimize_function=solver,
