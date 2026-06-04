@@ -24,7 +24,7 @@ def test_validation_sweep():
     if os.path.exists(filename):
         os.remove(filename)
 
-    validation_sweep.main()
+    validation_sweep.main(use_ma27=False, num_samples=11)
 
     data_manager = PsDataManager(
         filename,
