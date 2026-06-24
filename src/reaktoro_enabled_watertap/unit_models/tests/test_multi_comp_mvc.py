@@ -6,7 +6,7 @@ from reaktoro_enabled_watertap.unit_models.multi_comp_mvc import (
 from reaktoro_pse.core.util_classes.cyipopt_solver import (
     get_cyipopt_watertap_solver,
 )
-from pyomo.environ import ConcreteModel
+from pyomo.environ import ConcreteModel, assert_optimal_termination
 from idaes.core.util.model_statistics import degrees_of_freedom
 from idaes.core import (
     FlowsheetBlock,
@@ -20,29 +20,46 @@ from pyomo.environ import (
 )
 from watertap.costing import WaterTAPCosting
 
-from reaktoro_enabled_watertap.property_models.tests.test_mcas_with_enthalpy import (
-    build_case,
-)
 from watertap.property_models.water_prop_pack import WaterParameterBlock
 
 from watertap.core.util.model_diagnostics.infeasible import *
 
 from reaktoro_enabled_watertap.utils import scale_utils as scu
-from reaktoro_enabled_watertap.property_models.mcas_with_enthalpy import (
-    MCASWEParameterBlock,
-)
+
+from watertap.property_models.multicomp_aq_sol_prop_pack import MCASParameterBlock
 from watertap.property_models.multicomp_aq_sol_prop_pack import (
     ActivityCoefficientModel,
     DensityCalculation,
 )
 import watertap.property_models.seawater_prop_pack as props_sw
-
-
+from reaktoro_enabled_watertap.water_sources.source_water_importer import (
+    get_source_water_data,
+)
 from reaktoro_enabled_watertap.unit_models.multi_comp_feed_unit import (
     MultiCompFeed,
 )
 
 __author__ = "Alexander V. Dudchenko"
+
+
+def build_case(water, reconcile_using_reaktoro=False):
+    mcas_props, feed_specs = get_source_water_data(f"{water}.yaml")
+    m = ConcreteModel()
+    m.fs = FlowsheetBlock()
+
+    mcas_props["activity_coefficient_model"] = ActivityCoefficientModel.ideal
+    mcas_props["density_calculation"] = DensityCalculation.seawater
+
+    m.fs.properties = MCASParameterBlock(**mcas_props)
+    # m.fs.properties = MCASWEParameterBlock(**mcas_props)
+    m.fs.feed = MultiCompFeed(
+        default_property_package=m.fs.properties,
+        reconcile_using_reaktoro=reconcile_using_reaktoro,
+        **feed_specs,
+    )
+    m.fs.feed.fix_and_scale()
+    m.fs.feed.report()
+    return m
 
 
 def build_nacl_case():
@@ -78,7 +95,7 @@ def build_nacl_case():
     mcas_props["activity_coefficient_model"] = ActivityCoefficientModel.ideal
     mcas_props["density_calculation"] = DensityCalculation.constant
 
-    m.fs.properties = MCASWEParameterBlock(**mcas_props)
+    m.fs.properties = MCASParameterBlock(**mcas_props)
     m.fs.feed = MultiCompFeed(
         default_property_package=m.fs.properties,
         reconcile_using_reaktoro=False,
@@ -87,6 +104,20 @@ def build_nacl_case():
     m.fs.feed.fix_and_scale()
     m.fs.feed.report()
     return m
+
+
+@pytest.mark.core
+@pytest.mark.component
+def test_enthalpy_term():
+    m = build_case("USDA_brackish", True)
+    m.fs.feed.feed.properties[0].get_enthalpy_flow_terms(["Liq"])
+    solver = get_cyipopt_watertap_solver()
+    r = solver.solve(m.fs.feed, tee=True)
+    assert_optimal_termination(r)
+    m.fs.feed.feed.properties[0].display()
+    assert m.fs.feed.feed.properties[0].enth_mass_phase["Liq"].value == pytest.approx(
+        83554.43, rel=1e-1
+    )
 
 
 @pytest.mark.core
