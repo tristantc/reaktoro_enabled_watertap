@@ -44,7 +44,6 @@ from idaes.models.unit_models.heat_exchanger import (
 )
 from watertap.unit_models.mvc.components import Compressor, Condenser, Evaporator
 
-from reaktoro_enabled_watertap.unit_models.evaporator import EvaporatorMCAS
 from watertap.unit_models.mvc.components.lmtd_chen_callback import (
     delta_temperature_chen_callback,
 )
@@ -286,11 +285,11 @@ class MultiCompMVCData(WaterTapFlowsheetBlockData):
             == self.mixer_feed.mixed_state[0].pressure
         )
 
-        # self.evaporator = EvaporatorMCAS(
         self.evaporator = Evaporator(
             property_package_feed=mvc_prop_pack,
             property_package_vapor=self.config.vapor_property_package,
         )
+
         self.compressor = Compressor(
             property_package=self.config.vapor_property_package
         )
@@ -1190,7 +1189,6 @@ class MultiCompMVCData(WaterTapFlowsheetBlockData):
             self.mixer_feed.initialize()
             propagate_state(self.mixer_to_evaporator)
             self.evaporator.initialize()
-            # self.evaporator.initialize(recovery=self.config.target_recovery)
             # Disitilate side
             propagate_state(self.evap_to_compressor)
             self.compressor.initialize()
