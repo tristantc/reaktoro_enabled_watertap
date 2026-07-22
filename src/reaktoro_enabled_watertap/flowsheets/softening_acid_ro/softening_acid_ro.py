@@ -476,9 +476,9 @@ def fix_and_scale(m):
     # softening does not reduce alkalinity to below 10 ppm, as such
     # we constrain it to 10 ppm
     # (per veolia https://www.watertechnologies.com/handbook/chapter-07-precipitation-softening)
-    
-    # NOTE: Original reaktoro paper used a high bound of 20 ppm, as reaktoro-pse used 
-    # incorrect alkalintiy estimate resulting in it being 2x actual, 
+
+    # NOTE: Original reaktoro paper used a high bound of 20 ppm, as reaktoro-pse used
+    # incorrect alkalintiy estimate resulting in it being 2x actual,
     # thus we reduce lower bound here 10 ppm to repduce paper cost results.
     max_ph = 11
     iscale.calculate_scaling_factors(m)
